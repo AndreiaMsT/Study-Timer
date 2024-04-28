@@ -5,6 +5,7 @@ const timerEl = document.querySelector(".timer");
 const shortEl = document.querySelector(".short");
 const mediumEl = document.querySelector(".medium");
 const longEl = document.querySelector(".long");
+const tipsEl = document.querySelector(".break-tips");
 
 let interval;
 let timeLeft = 1500;
@@ -38,14 +39,17 @@ const setReset = () => {
   clearInterval(interval);
   timeLeft = 1500;
   updateTimer();
+  tipsEl.style.visibility = "hidden";
 };
 
 const setShortBreak = () => {
+  tipsEl.style.visibility = "visible";
   timeLeft = 300;
   interval = setInterval(() => {
     timeLeft--;
     updateTimer();
     if (timeLeft === 0) {
+      tipsEl.style.visibility = "hidden";
       clearInterval(interval);
       alert("let's get back to work!");
       timeLeft = 1500;
