@@ -6,9 +6,12 @@ const shortEl = document.querySelector(".short");
 const mediumEl = document.querySelector(".medium");
 const longEl = document.querySelector(".long");
 const tipsEl = document.querySelector(".break-tips");
+const gifEl = document.querySelector(".gif-container");
 
 let interval;
 let timeLeft = 1500;
+
+//TIMER FEATURES
 
 const updateTimer = () => {
   let minutes = Math.floor(timeLeft / 60);
@@ -18,6 +21,31 @@ const updateTimer = () => {
     .padStart(2, "0")}`;
   timerEl.innerHTML = displayTime;
 };
+
+const showImage = () => {
+  if ((gifEl.style.display = "none")) {
+    gifEl.style.display = "block";
+    tipsEl.style.display = "none";
+  }
+};
+
+const showTips = () => {
+  if ((tipsEl.style.display = "none")) {
+    gifEl.style.display = "none";
+    tipsEl.style.display = "block";
+  }
+};
+
+const setTimer = () => {
+  if (timeLeft === 0) {
+    clearInterval(interval);
+    alert("let's get back to work!");
+    timeLeft = 1500;
+    updateTimer();
+  }
+};
+
+//TIMER BUTTONS
 
 const setStart = () => {
   interval = setInterval(() => {
@@ -36,53 +64,41 @@ const setStop = () => {
 };
 
 const setReset = () => {
+  showImage();
   clearInterval(interval);
   timeLeft = 1500;
   updateTimer();
-  tipsEl.style.visibility = "hidden";
 };
 
+//BREAK FEATURES
+
 const setShortBreak = () => {
-  tipsEl.style.visibility = "visible";
   timeLeft = 300;
+  showTips();
   interval = setInterval(() => {
     timeLeft--;
     updateTimer();
-    if (timeLeft === 0) {
-      tipsEl.style.visibility = "hidden";
-      clearInterval(interval);
-      alert("let's get back to work!");
-      timeLeft = 1500;
-      updateTimer();
-    }
+    setTimer();
   }, 1000);
 };
 
 const setMediumBreak = () => {
   timeLeft = 900;
+  showTips();
   interval = setInterval(() => {
     timeLeft--;
     updateTimer();
-    if (timeLeft === 0) {
-      clearInterval(interval);
-      alert("let's get back to work!");
-      timeLeft = 1500;
-      updateTimer();
-    }
+    setTimer();
   }, 1000);
 };
 
 const setLongBreak = () => {
   timeLeft = 1800;
+  showTips();
   interval = setInterval(() => {
     timeLeft--;
     updateTimer();
-    if (timeLeft === 0) {
-      clearInterval(interval);
-      alert("let's get back to work!");
-      interval = 1500;
-      updateTimer();
-    }
+    setTimer();
   }, 1000);
 };
 
