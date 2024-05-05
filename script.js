@@ -48,15 +48,18 @@ const setTimer = () => {
 //TIMER BUTTONS
 
 const setStart = () => {
-  interval = setInterval(() => {
-    timeLeft--;
-    updateTimer();
-    if (timeLeft === 0) {
-      clearInterval(interval);
-      alert("Time for a break");
-      timeLeft = 1500;
-    }
-  }, 1000);
+  if (!interval) {
+    interval = setInterval(() => {
+      timeLeft--;
+      updateTimer();
+      if (timeLeft === 0) {
+        clearInterval(interval);
+        alert("Time for a break");
+        timeLeft = 1500;
+        updateTimer();
+      }
+    }, 1000);
+  }
 };
 
 const setStop = () => {
@@ -74,32 +77,20 @@ const setReset = () => {
 
 const setShortBreak = () => {
   timeLeft = 300;
+  updateTimer();
   showTips();
-  interval = setInterval(() => {
-    timeLeft--;
-    updateTimer();
-    setTimer();
-  }, 1000);
 };
 
 const setMediumBreak = () => {
   timeLeft = 900;
+  updateTimer();
   showTips();
-  interval = setInterval(() => {
-    timeLeft--;
-    updateTimer();
-    setTimer();
-  }, 1000);
 };
 
 const setLongBreak = () => {
   timeLeft = 1800;
+  updateTimer();
   showTips();
-  interval = setInterval(() => {
-    timeLeft--;
-    updateTimer();
-    setTimer();
-  }, 1000);
 };
 
 startEl.addEventListener("click", setStart);
